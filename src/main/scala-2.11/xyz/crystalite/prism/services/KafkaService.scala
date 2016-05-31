@@ -1,4 +1,4 @@
-package xyz.crystalite.prism.kafka
+package xyz.crystalite.prism.services
 
 import cakesolutions.kafka.KafkaProducer
 import cakesolutions.kafka.akka.KafkaProducerActor
