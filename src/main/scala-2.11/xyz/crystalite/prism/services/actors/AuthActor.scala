@@ -5,13 +5,13 @@ import java.util.concurrent.TimeUnit
 import akka.actor.Actor
 import akka.util.Timeout
 import com.twitter.storehaus.cache.TTLCache
+import com.twitter.util.Duration
 import xyz.crystalite.prism.models.db.UsersEntityTable
 import xyz.crystalite.prism.models.messages.Messages._
 import xyz.crystalite.prism.services.DatabaseService._
 import xyz.crystalite.prism.services.DatabaseService.driver.api._
 import xyz.crystalite.prism.util.Config
 
-import com.twitter.util.Duration
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
