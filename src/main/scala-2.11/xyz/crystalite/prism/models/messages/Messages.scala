@@ -9,7 +9,7 @@ object Messages {
 
   // Auth Messages
   case class AuthMessage(token: String)
-  case class AuthOk(userID: String, token: String)
+  case class AuthOk(id: Long, token: String)
   case class AuthNotFound(token: String, msg: String = "The user dosen't exist or it's invalid")
 
 }

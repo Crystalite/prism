@@ -18,23 +18,21 @@ class RestService(authActor: ActorRef,
                   kafkaProducer: ActorRef
                  )(implicit executionContext: ExecutionContext) extends CirceSupport {
 
-  implicit val timeout = Timeout(1 seconds)
+  implicit val timeout = Timeout(10 seconds)
 
   val routes =
-    pathPrefix("v1") {
-      pathEndOrSingleSlash {
-        post {
-          entity(as[UserMessage]) { message =>
-            val authFuture = authActor ? AuthMessage(message.token)
+    pathEndOrSingleSlash {
+      post {
+        entity(as[UserMessage]) { message =>
+          val authFuture = authActor ? AuthMessage(message.token)
 
-            complete(Await.result(authFuture, timeout.duration) match {
-              case AuthOk(userId, token) =>
-                kafkaProducer ! ProducerRecords
-                  .fromValuesWithKey[String, String](KafkaService.topic, userId, Seq(message.payload), None);
-                OK
-              case msg: AuthNotFound => NotFound -> (msg asJson)
-            })
-          }
+          complete(Await.result(authFuture, timeout.duration) match {
+            case AuthOk(id, token) =>
+              kafkaProducer ! ProducerRecords
+                .fromValuesWithKey[String, String](KafkaService.topic, id.toString, Seq(message.payload), None);
+              OK
+            case msg: AuthNotFound => NotFound -> (msg asJson)
+          })
         }
       }
     }
