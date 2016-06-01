@@ -26,7 +26,8 @@ libraryDependencies ++= {
 
     "com.typesafe.slick" %% "slick" % slickVersion,
     "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
-    "org.flywaydb" % "flyway-core" % "3.2.1",
-    "com.zaxxer" % "HikariCP" % "2.4.5"
+    "com.zaxxer" % "HikariCP" % "2.4.5",
+
+    "com.twitter" %% "storehaus-core" % "0.13.0"
   )
 }

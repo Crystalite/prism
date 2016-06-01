@@ -3,7 +3,8 @@ package xyz.crystalite.prism
 import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import xyz.crystalite.prism.services.{AuthActorService, KafkaService, RestService}
+import xyz.crystalite.prism.services.actors.AuthActor
+import xyz.crystalite.prism.services.{KafkaService, RestService}
 import xyz.crystalite.prism.util.Config
 
 import scala.concurrent.ExecutionContext
@@ -15,7 +16,7 @@ object Prism extends App with Config {
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   val kafkaProducer = system.actorOf(KafkaService.actorProps)
-  val authenticator = system.actorOf(Props[AuthActorService])
+  val authenticator = system.actorOf(Props[AuthActor])
 
   val restService = new RestService(authenticator, kafkaProducer)
 
