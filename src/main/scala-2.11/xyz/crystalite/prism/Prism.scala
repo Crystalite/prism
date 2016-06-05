@@ -15,8 +15,8 @@ object Prism extends App with Config {
   implicit val executor: ExecutionContext = system.dispatcher
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
-  val kafkaProducer = system.actorOf(KafkaService.actorProps)
-  val authenticator = system.actorOf(Props[AuthActor])
+  val kafkaProducer = system.actorOf(KafkaService.actorProps, "kafkaProducer")
+  val authenticator = system.actorOf(Props[AuthActor], "authenticator")
 
   val restService = new RestService(authenticator, kafkaProducer)
 
